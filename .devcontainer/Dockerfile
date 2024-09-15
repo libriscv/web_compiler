@@ -12,8 +12,12 @@ RUN apt-get update && apt-get install -y \
     g++-14-riscv64-linux-gnu \
     git cmake mold \
 	g++-14-riscv64-linux-gnu \
-	git cmake mold \ 
-    erlang-dev elixir
+	git cmake mold
+
+RUN add-apt-repository ppa:rabbitmq/rabbitmq-erlang
+RUN apt update
+RUN apt install -y \ 
+    elixir erlang-dev erlang-xmerl
 
 # Copy API files
 # RUN mkdir -p /usr/api
