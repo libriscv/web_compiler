@@ -6,6 +6,9 @@ FROM ubuntu:24.04
 # To run the container:
 # docker run -it -v .:/usr/src riscv64-linux-gnu <my.elf>
 #
+
+ARG TZ=Etc/UTC
+
 # Install dependencies
 RUN apt-get update && apt-get install -y \
     curl \
