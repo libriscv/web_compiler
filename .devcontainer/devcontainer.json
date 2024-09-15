@@ -18,7 +18,17 @@
 		"vscode": {
 			"settings": {},
 			"extensions": [
-				"streetsidesoftware.code-spell-checker"
+				"streetsidesoftware.code-spell-checker",
+				"JakeBecker.elixir-ls",
+				"esbenp.prettier-vscode",
+				"dbaeumer.vscode-eslint",
+				"bradlc.vscode-tailwindcss",
+				"adrianwilczynski.alpine-js-intellisense",
+				"stylelint.vscode-stylelint",
+				"ms-azuretools.vscode-docker",
+				"pantajoe.vscode-elixir-credo",
+				"stkb.rewrap",
+				"samuel-pordeus.elixir-test"
 			]
 		}
 	},
@@ -34,19 +44,6 @@
 			"onAutoForward": "notify"
 		}
 	},
-	
-	"extensions": [
-		"JakeBecker.elixir-ls",
-		"esbenp.prettier-vscode",
-		"dbaeumer.vscode-eslint",
-		"bradlc.vscode-tailwindcss",
-		"adrianwilczynski.alpine-js-intellisense",
-		"stylelint.vscode-stylelint",
-		"ms-azuretools.vscode-docker",
-		"pantajoe.vscode-elixir-credo",
-		"stkb.rewrap",
-		"samuel-pordeus.elixir-test"
-	],
 	
 	// Use 'postCreateCommand' to run commands after the container is created.
 	// "postCreateCommand": "yarn install"
