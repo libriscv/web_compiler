@@ -11,8 +11,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     g++-14-riscv64-linux-gnu \
     git cmake mold \
-	g++-14-riscv64-linux-gnu \
-	git cmake mold
+    software-properties-common
 
 RUN add-apt-repository ppa:rabbitmq/rabbitmq-erlang
 RUN apt update
