@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y \
     g++-14-riscv64-linux-gnu \
     git cmake mold \
 	g++-14-riscv64-linux-gnu \
-	git cmake mold
+	git cmake mold \ 
+    erlang-dev elixir
 
 # Copy API files
 # RUN mkdir -p /usr/api
