@@ -23,7 +23,10 @@ defmodule WebCompilerWeb.Router do
   scope "/", WebCompilerWeb do
     pipe_through :api
 
+    post "/compile", CompileController, :create
     get "/version", VersionController, :index
+    get "/cache/:hash", CacheController, :show
+    get "/status/:queueId", StatusController, :show
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
