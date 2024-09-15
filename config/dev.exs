@@ -1,15 +1,5 @@
 import Config
 
-# Configure your database
-config :web_compiler, WebCompiler.Repo,
-  username: "cicd",
-  password: "web_compiler",
-  hostname: "db_test",
-  database: "web_compiler_test",
-  stacktrace: true,
-  show_sensitive_data_on_connection_error: true,
-  pool_size: 10
-
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
