@@ -1,8 +1,6 @@
 defmodule WebCompilerWeb.VersionControllerTest do
   use WebCompilerWeb.ConnCase, async: true
 
-  alias WebCompilerWeb.VersionController
-
   describe "GET /version" do
     test "returns GCC version 13 or higher", %{conn: conn} do
       conn = get(conn, "/version")
