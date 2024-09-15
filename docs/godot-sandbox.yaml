@@ -92,6 +92,9 @@ paths:
                   gccVersion:
                     type: string
                     example: "GCC 9.3.0"
+                  rustVersion:
+                    type: string
+                    example: "rustc 1.58.0"
   /cache/{hash}:
     get:
       tags:
