@@ -1,5 +1,11 @@
 import Config
 
+# Configure your database
+config :web_compiler, WebCompiler.Repo,
+  adapter: Ecto.Adapters.SQLite3,
+  database: "priv/repo/web_compiler_dev.db",
+  pool_size: 10
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #

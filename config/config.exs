@@ -8,7 +8,13 @@
 import Config
 
 config :web_compiler,
+  ecto_repos: [WebCompiler.Repo],
   generators: [timestamp_type: :utc_datetime]
+
+config :web_compiler, Oban,
+  engine: Oban.Engines.Lite,
+  queues: [default: 10],
+  repo: WebCompiler.Repo
 
 # Configures the endpoint
 config :web_compiler, WebCompilerWeb.Endpoint,

@@ -35,3 +35,8 @@ web_compiler-*.tar
 npm-debug.log
 /assets/node_modules/
 
+priv/repo/*.db
+
+priv/repo/web_compiler_dev.db-shm
+
+priv/repo/web_compiler_dev.db-wal
