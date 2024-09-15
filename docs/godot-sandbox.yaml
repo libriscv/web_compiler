@@ -77,14 +77,24 @@ paths:
     get:
       tags:
         - compile
-      summary: Get API version
+      summary: Get API and GCC version
       responses:
         '200':
           description: Successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/VersionResponse'
+                type: object
+                properties:
+                  apiVersion:
+                    type: string
+                    example: "1.0.0"
+                  gccVersion:
+                    type: string
+                    example: "GCC 9.3.0"
+                  rustVersion:
+                    type: string
+                    example: "rustc 1.58.0"
   /cache/{hash}:
     get:
       tags:

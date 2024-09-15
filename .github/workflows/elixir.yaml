@@ -31,13 +31,6 @@ jobs:
         rustup default nightly
         rustup target add riscv64gc-unknown-linux-gnu
 
-    - uses: ikalnytskyi/action-setup-postgres@v6
-      with:
-        username: cicd
-        password: web_compiler
-        database: web_compiler
-        port: 34837
-
     - name: Install Dependencies
       run: |
         mix local.hex --force
