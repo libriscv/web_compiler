@@ -5,15 +5,38 @@ on:
     branches: [ main ]
   pull_request:
 
+concurrency: 
+  group: ${{ github.workflow }}-${{ github.event_name == 'push' && github.ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   test:
-    runs-on: ubuntu-latest
-
-    container:
-      image: elixir:1.14
+    runs-on: ubuntu-24.04
 
     steps:
     - uses: actions/checkout@v2
+
+    - name: Setup Environment
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y curl g++-14-riscv64-linux-gnu git cmake mold software-properties-common
+        sudo add-apt-repository ppa:rabbitmq/rabbitmq-erlang
+        sudo apt update
+        sudo apt install -y elixir erlang-dev erlang-xmerl
+
+    - name: Install Rust
+      run: |
+        curl https://sh.rustup.rs -sSf | sh -s -- -y
+        echo "/root/.cargo/bin" >> $GITHUB_PATH
+        rustup default nightly
+        rustup target add riscv64gc-unknown-linux-gnu
+
+    - uses: ikalnytskyi/action-setup-postgres@v6
+      with:
+        username: cicd
+        password: web_compiler
+        database: web_compiler
+        port: 34837
 
     - name: Install Dependencies
       run: |
