@@ -1,0 +1,156 @@
+openapi: 3.1.0
+info:
+  title: Godot Sandbox Webservice API
+  description: This API allows for the compilation of native scripts into .elf format.
+  version: 1.0.0
+servers:
+  - url: https://{host}/v1
+    variables:
+      host:
+        default: api.example.com
+tags:
+  - name: compile
+components:
+  securitySchemes:
+    githubOAuth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://github.com/login/oauth/authorize
+          tokenUrl: https://github.com/login/oauth/access_token
+          scopes: {}
+    discordOAuth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://discord.com/api/oauth2/authorize
+          tokenUrl: https://discord.com/api/oauth2/token
+          scopes: {}
+    googleOAuth:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/o/oauth2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes: {}
+paths:
+  /compile:
+    post:
+      tags:
+        - compile
+      summary: Compile source files into .elf format
+      requestBody:
+        content:
+          application/zip:
+            schema:
+              type: string
+              format: binary
+        required: true
+        description: The source files to be compiled
+      parameters:
+        - name: webhookUrl
+          in: query
+          schema:
+            type: string
+            format: uri
+          description: URL to be called when the compilation is complete
+      responses:
+        '200':
+          description: Compilation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompilationResponse'
+        '202':
+          description: Compilation request accepted and queued
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QueueResponse'
+        '400':
+          description: Invalid input
+        '429':
+          description: Too many requests
+        '500':
+          description: Internal server error
+  /version:
+    get:
+      tags:
+        - compile
+      summary: Get API version
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionResponse'
+  /cache/{hash}:
+    get:
+      tags:
+        - compile
+      summary: Check cache for compiled output
+      parameters:
+        - name: hash
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Cache hit, returns the cached compiled output
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompilationResponse'
+        '404':
+          description: Cache miss, no compiled output found
+  /status/{queueId}:
+    get:
+      tags:
+        - compile
+      summary: Check the status of a queued compilation request
+      parameters:
+        - name: queueId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Status retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+        '404':
+          description: Queue ID not found
+components:
+  schemas:
+    CompilationResponse:
+      type: object
+      properties:
+        output:
+          type: string
+          description: Path to the compiled .elf file
+    VersionResponse:
+      type: object
+      properties:
+        version:
+          type: string
+          example: "1.0.0"
+    QueueResponse:
+      type: object
+      properties:
+        queueId:
+          type: string
+          description: ID of the queued compilation request
+    StatusResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [queued, processing, completed, failed]
+        output:
+          type: string
+          description: Path to the compiled .elf file (if status is 'completed')
