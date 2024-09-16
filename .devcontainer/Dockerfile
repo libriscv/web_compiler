@@ -1,43 +1,44 @@
 FROM ubuntu:24.04
-#
-# To build the image:
-# docker build -t riscv64-linux-gnu .
-#
-# To run the container:
-# docker run -it -v .:/usr/src riscv64-linux-gnu <my.elf>
-#
 
 ARG TZ=Etc/UTC
 
-# Install dependencies
 RUN apt-get update && apt-get install -y \
+    autoconf \
+    bison \
+    flex \
+    gcc \
+    g++ \
+    git \
+    libprotobuf-dev \
+    libnl-route-3-dev \
+    libtool \
+    make \
+    pkg-config \
+    protobuf-compiler
+
+RUN git clone https://github.com/google/nsjail.git /nsjail
+
+RUN cd /nsjail && make && mv /nsjail/nsjail /bin && rm -rf -- /nsjail
+
+RUN apt-get install -y \
     curl \
     g++-14-riscv64-linux-gnu \
-    git cmake mold \
+    cmake \
+    mold \
     software-properties-common
 
 RUN add-apt-repository ppa:rabbitmq/rabbitmq-erlang
-RUN apt update
-RUN apt install -y \ 
-    elixir erlang-dev erlang-xmerl
-
-# Copy API files
-# RUN mkdir -p /usr/api
-# COPY build.sh api/* /usr/api/
+RUN apt update && apt install -y \
+    elixir \
+    erlang-dev \
+    erlang-xmerl
 
 RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 ENV PATH="/root/.cargo/bin:${PATH}"
-
-# Add RISC-V target
 RUN rustup default nightly
 RUN rustup target add riscv64gc-unknown-linux-gnu
 
-# Create a project directory
-# RUN mkdir -p /usr/project
-# COPY build.sh Cargo.toml /usr/project/
-# COPY .cargo /usr/project/.cargo
-# COPY src /usr/project/src
-
-# Create a source directory (which will be mounted)
 RUN mkdir -p /usr/src
 WORKDIR /usr/src
+
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
