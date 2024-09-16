@@ -3,7 +3,7 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
-- [*] Execute version from gcc and rustc
+- [x] Execute version from gcc and rustc
 - [ ] After zip of files are sent enqueue into compiler
 - [ ] Optional jailing chroot
 - [ ] Cache
