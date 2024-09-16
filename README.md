@@ -3,6 +3,12 @@
 [![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
+- [*] Execute version from gcc and rustc
+- [ ] After zip of files are sent enqueue into compiler
+- [ ] Optional jailing chroot
+- [ ] Cache
+- [ ] Send the cache url to the client 
+
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
